@@ -35,7 +35,6 @@ The numerical experiments in the report show the following general trends:
 - On the **quadratic** and **absolute value** problems, the r-algorithm reaches small optimality gaps in far fewer iterations.
 - On the **regression error minimization** problem, the su-algorithm may improve faster at some early or intermediate stages, but the r-algorithm achieves a steeper final reduction.
 - On the **CVaR portfolio optimization** problem, the su-algorithm is more sensitive to penalty and update parameters, while the r-algorithm behaves more robustly.
-- 
 - On **ɛ̝-SVR**, both methods perform well and achieve very similar final objective values.
  <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/c8b05326-dfcf-40c0-822e-0db3ab211887" />
 
