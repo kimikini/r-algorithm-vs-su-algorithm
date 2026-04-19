@@ -18,7 +18,7 @@ The repository includes experiments for:
 
 2. **Nonsmooth ill-conditioned absolute value problem**
 
-3. **ɛ̝-Support Vector Regression ɛ̝-SVR**
+3. **ε-Support Vector Regression ε-SVR**
    - Finite-sample nonsmooth regression with L2-regularization
 
 4. **Regression error minimization problem**
@@ -35,7 +35,7 @@ The numerical experiments in the report show the following general trends:
 - On the **quadratic** and **absolute value** problems, the r-algorithm reaches small optimality gaps in far fewer iterations.
 - On the **regression error minimization** problem, the su-algorithm may improve faster at some early or intermediate stages, but the r-algorithm achieves a steeper final reduction.
 - On the **CVaR portfolio optimization** problem, the su-algorithm is more sensitive to penalty and update parameters, while the r-algorithm behaves more robustly.
-- On **ɛ̝-SVR**, both methods perform well and achieve very similar final objective values.
+- On **ɛ-SVR**, both methods perform well and achieve very similar final objective values.
  <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/c8b05326-dfcf-40c0-822e-0db3ab211887" />
 
 Suboptimality Gap:
@@ -44,7 +44,7 @@ Suboptimality Gap:
    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/3b679b53-d896-4b4b-ac68-4335c0702e9f" />
 
   
-- A **memory-saving initialization** for the transformation matrix B_k reduces storage cost while preserving nearly the same optimization accuracy in the tested **ɛ̝-SVR** setting.
+- A **memory-saving initialization** for the transformation matrix B_k reduces storage cost while preserving nearly the same optimization accuracy in the tested **ɛ-SVR** setting.
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/f660d8db-1ff4-4561-8045-ca12a531d5cd" />
 
 ## References
