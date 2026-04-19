@@ -37,16 +37,16 @@ The numerical experiments in the report show the following general trends:
 - On the **CVaR portfolio optimization** problem, the su-algorithm is more sensitive to penalty and update parameters, while the r-algorithm behaves more robustly.
 - 
 - On **ɛ̝-SVR**, both methods perform well and achieve very similar final objective values.
- <img width="1055" height="637" alt="image" src="https://github.com/user-attachments/assets/c8b05326-dfcf-40c0-822e-0db3ab211887" />
+ <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/c8b05326-dfcf-40c0-822e-0db3ab211887" />
 
 Suboptimality Gap:
-   <img width="1167" height="392" alt="image" src="https://github.com/user-attachments/assets/f3639655-22d5-4238-8323-30e642cbdd3b" />
-   <img width="936" height="703" alt="image" src="https://github.com/user-attachments/assets/1ac4ce6b-0453-46a2-a9ea-472ac1f6c65e" />
-   <img width="927" height="712" alt="image" src="https://github.com/user-attachments/assets/3b679b53-d896-4b4b-ac68-4335c0702e9f" />
+   <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/f3639655-22d5-4238-8323-30e642cbdd3b" />
+   <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/1ac4ce6b-0453-46a2-a9ea-472ac1f6c65e" />
+   <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/3b679b53-d896-4b4b-ac68-4335c0702e9f" />
 
   
 - A **memory-saving initialization** for the transformation matrix B_k reduces storage cost while preserving nearly the same optimization accuracy in the tested **ɛ̝-SVR** setting.
-<img width="1090" height="430" alt="image" src="https://github.com/user-attachments/assets/f660d8db-1ff4-4561-8045-ca12a531d5cd" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/f660d8db-1ff4-4561-8045-ca12a531d5cd" />
 
 ## References
 1. Anton Malandii and Stan Uryasev. *Biased mean quadrangle and applications*. arXiv preprint arXiv:2603.26901, 2026.
