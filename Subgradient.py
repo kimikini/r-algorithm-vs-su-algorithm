@@ -129,6 +129,7 @@ def error_calcfg(w, X, y):
 
     return f, g 
 
+# CVaR portfolio optimization
 def proj_simplex(w):
     u = np.sort(w)[::-1] # sort the weights desc order. 
     cssv = np.cumsum(u) # sum of the weights 
@@ -136,7 +137,6 @@ def proj_simplex(w):
     lam = (cssv[k] - 1) / (k + 1) # calculate the lambda by using this k 
     return np.maximum(w - lam, 0) 
 
-# CVaR portfolio optimization
 def cvaropt_calcfg(w, X, lam=1.0, alpha=0.95, M=1e3):
     n = X.shape[0]
     L = - X @ w
@@ -197,4 +197,94 @@ def rozenbrock_calcfg(x):
     g[-1] = 200 * (x[-1] - x[-2]**2)
     
     return f, g
+
+
+# Relative Entropy Minimization
+def entropyr_proj(X, l=1e-13, u=1):
+    eigvals, Q = np.linalg.eigh(X)
+    eigvals_clipped = np.clip(eigvals, l, u)
+    return Q @ np.diag(eigvals_clipped) @ Q.T
+
+def entropyr_calcfg(x, Y, M):
+    """
+    f(X) = log det(X) - trace(XY)
+    """
+    X = x.reshape(Y.shape)  # Reshape x to the original matrix shape
+    sign, logdet = np.linalg.slogdet(X)
+    #if sign <= 0:
+        #return np.inf
+    f = logdet - np.trace(X @ Y)
+
+    #subgradient
+    """
+    g(X) = X^{-1}^T - Y^T
+    """
+    proj_term_entro = M * (X-entropyr_proj(X)) / np.linalg.norm(X-entropyr_proj(X)) if np.linalg.norm(X-entropyr_proj(X)) != 0 else np.zeros_like(X)
+    g = np.linalg.inv(X).transpose() - Y.transpose() + proj_term_entro
+    return f, g
+
+
+def beale_calcfg(x):
+    x = np.asarray(x, dtype=float)
+    x1, x2 = x[0], x[1]
+    f = (1.5 - x1 + x1 * x2)**2 + (2.25 - x1 + x1 * x2**2)**2 + (2.625 - x1 + x1 * x2**3)**2
+    g1 = 2 * (1.5 - x1 + x1 * x2) * (-1 + x2) + 2 * (2.25 - x1 + x1 * x2**2) * (-1 + x2**2) + 2 * (2.625 - x1 + x1 * x2**3) * (-1 + x2**3)
+    g2 = 2 * (1.5 - x1 + x1 * x2) * (x1) + 4 * (2.25 - x1 + x1 * x2**2) * (x1 * x2) + 6 * (2.625 - x1 + x1 * x2**3) * (x1 * x2**2)
+    g = np.array([g1, g2])
+    return f, g
+
+
+def entropy_dual_calcfg(z, A, b, p, l, u):
+    """
+    Dual entropy problem.
+
+    z = [alpha, lambda_1, ..., lambda_m]
+
+    Dual problem:
+        maximize L(x*, alpha, lambda)
+
+    Since r-alg / Adam usually minimize, return:
+        f = -dual_value
+        g = -dual_gradient
+    """
+
+    z = np.asarray(z, dtype=float)
+    A = np.asarray(A, dtype=float)
+    b = np.asarray(b, dtype=float)
+    p = np.asarray(p, dtype=float)
+    l = np.asarray(l, dtype=float)
+    u = np.asarray(u, dtype=float)
+
+    alpha = z[0]
+    lamb = z[1:]      # length m
+
+    # x_hat_j = p_j exp(-1 - alpha - lambda^T a_col^j)
+    x_hat = p * np.exp(-1 - alpha - A.T @ lamb)
+
+    # x_star_j = projection of x_hat_j onto [l_j, u_j]
+    x_star = np.clip(x_hat, l, u) # np.clip(x, lower_bound, upper_bound)
+
+    # L(x*, alpha, lambda)
+    eps = 1e-12
+    x_safe = np.maximum(x_star, eps) # avoid log(0) by ensuring x_star is at least eps
+
+    t1 = np.sum(x_safe * np.log(x_safe / p))
+    t2 = alpha * (np.sum(x_star) - 1)
+    t3 = lamb @ (A @ x_star - b)
+
+    dual_value = t1 + t2 + t3
+
+    # gradient of dual objective
+    # by envelope theorem:
+    grad_alpha = np.sum(x_star) - 1
+    grad_lamb = A @ x_star - b
+
+    grad_dual = np.concatenate([[grad_alpha], grad_lamb])
+
+    # minimize negative dual
+    f = -dual_value
+    g = -grad_dual
+
+    return f, g
+
 # %%
