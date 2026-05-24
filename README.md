@@ -1,5 +1,5 @@
 # r-algorithm-vs-su-algorithm
-Python implementation and comparison of the **r-algorithm** and **su-algorithm** for nonsmooth and ill-conditioned optimization, with experiments on quadratic/absolute-value test functions, ε-SVR, regression error minimization, and CVaR portfolio optimization.
+Python implementation and comparison of the **r-algorithm** and **su-algorithm** for nonsmooth and ill-conditioned optimization, with experiments on quadratic/absolute-value test functions, Beale function, Rozenbrock function, ε-SVR, regression error minimization, CVaR portfolio optimization, and relative entropy minimization problem.
 
 This project investigates how the **r-algorithm** and the **su-algorithm** solve optimization problems that are nonsmooth and potentially ill-conditioned. For such problems, subgradient methods often suffer from zigzagging behavior and slow convergence. The r-algorithm and the su-algorithm are designed to address these challenges more effectively and to improve convergence toward an optimal solution. The aim of this study is to compare the performance of these two algorithms through numerical experiments on several classes of problems, including designed test functions, machine learning problems, and optimization problems. Particular attention is given to the mechanism of each method: the r-algorithm accelerates the optimization process through **space dilation**, whereas the su-algorithm relies on a **subgradient-based variable metric** update. For selected experiments, the performance of the r-algorithm and su-algorithm is also benchmarked against results obtained from **Portfolio Safeguard (PSG)**.
 
@@ -26,6 +26,12 @@ The repository includes experiments for:
 
 5. **CVaR portfolio optimization**
    - A constrained portfolio problem combining expected loss and Conditional Value-at-Risk under simplex constraints
+     
+6. **Rozenbrock Function**
+   
+8. **Beale Function**
+   
+10. **Relative Entropy minimization problem**
 
 ## Main Findings
 
