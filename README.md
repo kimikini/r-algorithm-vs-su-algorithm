@@ -31,7 +31,7 @@ The repository includes experiments for:
    
 8. **Beale Function**
    
-10. **Relative Entropy minimization problem**
+10. **Relative entropy minimization problem**
 
 ## Main Findings
 
